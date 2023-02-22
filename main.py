@@ -1,6 +1,6 @@
 import json, xmltodict, csv
 
-from DateParser import DateParser
+from DataParser import DataParser
 
 #Log contains all of the data
 def main():
@@ -8,14 +8,17 @@ def main():
     
 
     #f1 = open("testfile.xle","r")
-    f1_data = DateParser.parse_csv('3.csv')
+    f1_data = DataParser.parse_csv('3.csv')
  
-    f2_data = DateParser.parse_csv('2.csv')
+    f2_data = DataParser.parse_csv('2.csv')
 
-    print(f1_data.keys())
-    #fileArr = [f1_data, f2_data]
+    #print(f1_data['Date'][0])
+    fileArr = [f1_data, f2_data]
 
-    #print(DateParser.parseDates(fileArr))
+    minimum, maximum = DataParser.parseDates(fileArr)
+
+    print(minimum)
+    print(maximum)
 
 
 main()
