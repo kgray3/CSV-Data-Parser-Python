@@ -1,24 +1,35 @@
 import json, xmltodict, csv
 
 from DataParser import DataParser
+from DataTrimmer import DataTrimmer
+from GraphPlotter import GraphPlotter
 
 #Log contains all of the data
 def main():
-
     
+    # Open files here
+    f1_data = DataParser.parse_csv('F1\'19 Bostwick.csv')
+    f2_data = DataParser.parse_csv('F1\'19 Lowery In.csv')
+    f3_data = DataParser.parse_csv('F1\'19 Lowery Out.csv')
+    f4_data = DataParser.parse_csv('F1\'19 Newton E.csv')
+    f5_data = DataParser.parse_csv('F1\'19 Newton W.csv')
+    f6_data = DataParser.parse_csv('F1\'19 Phillip level.csv')
+    f7_data = DataParser.parse_csv('F1\'19 Phillip Out.csv')
 
-    #f1 = open("testfile.xle","r")
-    f1_data = DataParser.parse_csv('3.csv')
- 
-    f2_data = DataParser.parse_csv('2.csv')
+    # Add files to array
+    fileArr = [f1_data, f2_data, f3_data, f4_data, f5_data, f6_data, f7_data]
 
-    #print(f1_data['Date'][0])
-    fileArr = [f1_data, f2_data]
-
+    # use min/max to plot graph
     minimum, maximum = DataParser.parseDates(fileArr)
 
-    print(minimum)
-    print(maximum)
+    # Trim the files to share the same timeframe
+    graph_files = DataTrimmer.trim_data(fileArr, minimum, maximum)
+
+    # Graph the files
+    GraphPlotter.plot_graph(graph_files)
+
+
+
 
 
 main()
