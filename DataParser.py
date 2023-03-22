@@ -2,6 +2,7 @@ import csv
 from datetime import datetime
 class DataParser:
     
+    # TO-DO Add support for Date Time in June-Aug 2019
     # Method to obtain smallest maximum and greatest minimum timestamps across an array of files
     def parseDates(files):
         minimum: str = None
@@ -21,7 +22,11 @@ class DataParser:
 
     # Method to create date_time object based on CSV string
     def parse_date_and_time_str(s):
-        datetime_object = datetime.strptime(s, '%m/%d/%Y %I:%M:%S %p')
+        if(s.count(':') != 2):
+            new_datetime_str = s[0:s.index('M') - 2] + ':00' + s[s.index('M') - 2:s.index('M') + 1]
+            datetime_object = datetime.strptime(new_datetime_str, '%m/%d/%Y %I:%M:%S %p')
+        else:
+            datetime_object = datetime.strptime(s, '%m/%d/%Y %I:%M:%S %p')
         return datetime_object
 
     # Method to parse csv file into Python dictionary
@@ -35,6 +40,8 @@ class DataParser:
         for row in file:
             for column, value in row.items():
                 result.setdefault(column, []).append(value)
+        result.update({"filename": fileName[0:fileName.index('.csv')]})
+        
         return result
 
     # Method to find where the CSV column titles are located

@@ -7,29 +7,38 @@ from GraphPlotter import GraphPlotter
 #Log contains all of the data
 def main():
     
+    
     # Open files here
     f1_data = DataParser.parse_csv('F1\'19 Bostwick.csv')
     f2_data = DataParser.parse_csv('F1\'19 Lowery In.csv')
     f3_data = DataParser.parse_csv('F1\'19 Lowery Out.csv')
     f4_data = DataParser.parse_csv('F1\'19 Newton E.csv')
     f5_data = DataParser.parse_csv('F1\'19 Newton W.csv')
-    f6_data = DataParser.parse_csv('F1\'19 Phillip level.csv')
+    #f6_data = DataParser.parse_csv('June-Aug 2019 Weather Data.csv')
     f7_data = DataParser.parse_csv('F1\'19 Phillip Out.csv')
+    f8_data = DataParser.parse_csv('F1\'19 Bostwick.csv')
+
+    #print(f2_data['filename'])
 
     # Add files to array
-    fileArr = [f1_data, f2_data, f3_data, f4_data, f5_data, f6_data, f7_data]
+    fileArr = [f2_data,f3_data]
 
     # use min/max to plot graph
     minimum, maximum = DataParser.parseDates(fileArr)
 
+    print(minimum)
+
     # Trim the files to share the same timeframe
     graph_files = DataTrimmer.trim_data(fileArr, minimum, maximum)
 
+    # TO-DO: Add graph options for setting dual axis
     # Graph the files
-    GraphPlotter.plot_graph(graph_files)
+
+    y_axes = ['ms','LEVEL','TEMPERATURE', 'CONDUCTIVITY'] #- add as parameter to plot_graph method
+    GraphPlotter.plot_graph(graph_files,y_axes)
 
 
-
+    # if label contains input axis label, use it (?)
 
 
 main()

@@ -22,7 +22,9 @@ class DataTrimmer:
             if DataParser.parse_date_and_time_str(timestamp) >= DataParser.parse_date_and_time_str(minimum_timestamp):
                 for k in range(counter):
                     for m in file.keys():
-                        file[m].pop(0)
+                        #print(m)
+                        if not m == 'filename':
+                            file[m].pop(0)
                 return file
     
     # Method to trim the end of a file based on a desired timeframe, goes backwards until timeframe is reached
@@ -38,6 +40,7 @@ class DataTrimmer:
             if DataParser.parse_date_and_time_str(timestamp) <= DataParser.parse_date_and_time_str(maximum_timestamp):
                 for k in range(counter):
                     for m in file.keys():
-                        file[m].pop(len(file[m])-1)          
+                        if not m == 'filename':
+                            file[m].pop(len(file[m])-1)          
                 return file
         
