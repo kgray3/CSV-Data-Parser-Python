@@ -46,7 +46,10 @@ def main():
     # Y AXIS COLORS GET SET IN THIS ARRA -- LINE UP WHAT COLOR YOU WANT
     # WITH THE CORRESPONDING LABEL IN y_axes
     colors = ['r','g']
-    GraphPlotter.plot_graph(graph_files,y_axes, scales, colors)
+
+    # True if you want the first graph to be a scatterplot, False otherwise
+    scatter = True
+    GraphPlotter.plot_graph(graph_files,y_axes, scales, colors, scatter)
 
 
 

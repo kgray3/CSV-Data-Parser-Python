@@ -7,7 +7,7 @@ from DataParser import DataParser
 # Add dual/triple Y-axis for conductivity and temperature
 class GraphPlotter:
     # Method to plot graphs for each file in one subplot
-    def plot_graph(files, y_axes, scales, colors):
+    def plot_graph(files, y_axes, scales, colors, scatter):
         # Creates the subplot based on the # of files
         figure, axis = plt.subplots(len(files), constrained_layout = True)
         counter = 0
@@ -43,7 +43,10 @@ class GraphPlotter:
                         print(y_axes_colors[label_counter])
                         axis.yaxis.label.set_color(y_axes_colors[label_counter])
                         axis.tick_params(axis='y', colors=y_axes_colors[label_counter])
-                        axis.plot(x_axis,y_axis,color=y_axes_colors[label_counter])
+                        if counter == 0 and scatter:
+                            axis.scatter(x_axis,y_axis,color=y_axes_colors[label_counter])
+                        else:
+                            axis.plot(x_axis,y_axis,color=y_axes_colors[label_counter])
                         axis_counter = axis_counter + 1
                         label_counter = label_counter + 1
                     else: 
@@ -54,7 +57,10 @@ class GraphPlotter:
                             new_axis.set_ylabel(label)
                             new_axis.yaxis.label.set_color(y_axes_colors[label_counter])
                             new_axis.tick_params(axis='y', colors=y_axes_colors[label_counter])
-                            new_axis.plot(x_axis, y_axis, color=y_axes_colors[label_counter])
+                            if counter == 0 and scatter:
+                                new_axis.scatter(x_axis,y_axis,color=y_axes_colors[label_counter])
+                            else:
+                                new_axis.plot(x_axis, y_axis, color=y_axes_colors[label_counter])
                             if scales[label_counter] != 0:
                                 new_axis.yaxis.set_yscale(scales[label_counter])
                             axis_counter = axis_counter + 0.05
@@ -86,7 +92,10 @@ class GraphPlotter:
                         y_axis = [eval (m) for m in file[label]]
                         if scales[label_counter] != 0:
                              axis[counter].yaxis.set_ticks(np.arange(min(y_axis), max(y_axis), scales[label_counter]))
-                        axis[counter].plot(x_axis,y_axis,y_axes_colors[label_counter])
+                        if counter == 0 and scatter:
+                            axis[counter].scatter(x_axis,y_axis,color=y_axes_colors[label_counter])
+                        else:
+                            axis[counter].plot(x_axis,y_axis,color=y_axes_colors[label_counter])
                         axis[counter].set_ylabel(label)
                         axis[counter].yaxis.label.set_color(y_axes_colors[label_counter])
                         axis[counter].tick_params(axis='y', colors=y_axes_colors[label_counter])
@@ -103,7 +112,10 @@ class GraphPlotter:
                             new_axis.set_ylabel(label)
                             new_axis.yaxis.label.set_color(y_axes_colors[label_counter])
                             new_axis.tick_params(axis='y', colors=y_axes_colors[label_counter])
-                            new_axis.plot(x_axis, y_axis, color=y_axes_colors[label_counter])
+                            if counter == 0 and scatter:
+                                new_axis.scatter(x_axis, y_axis, color=y_axes_colors[label_counter])
+                            else:
+                                new_axis.plot(x_axis, y_axis, color=y_axes_colors[label_counter])
                             axis_counter = axis_counter + 0.05
                             label_counter = label_counter + 1
 
